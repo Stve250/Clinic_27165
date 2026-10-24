@@ -1,4 +1,4 @@
-package kigali.clinic.rw.domain;
+package auca.pharma.rw.domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +12,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 @Entity
-public class Specialization {
+@Table(name = "product_line")
+public class ProductLine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -24,8 +26,8 @@ public class Specialization {
     private String name;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "specializations")
-    private List<Doctor> doctors = new ArrayList<>();
+    @ManyToMany(mappedBy = "productLines")
+    private List<SalesRepresentative> salesRepresentatives = new ArrayList<>();
 
     public UUID getId() {
         return id;
@@ -39,12 +41,12 @@ public class Specialization {
         this.name = name;
     }
 
-    public List<Doctor> getDoctors() {
-        return doctors;
+    public List<SalesRepresentative> getSalesRepresentatives() {
+        return salesRepresentatives;
     }
 
-    public void setDoctors(List<Doctor> doctors) {
-        this.doctors = doctors;
+    public void setSalesRepresentatives(List<SalesRepresentative> salesRepresentatives) {
+        this.salesRepresentatives = salesRepresentatives;
     }
 
 }

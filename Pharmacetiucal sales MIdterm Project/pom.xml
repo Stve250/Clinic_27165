@@ -8,24 +8,11 @@
 		<version>4.1.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>kigali</groupId>
-	<artifactId>clinic</artifactId>
+	<groupId>auca</groupId>
+	<artifactId>pharmaceutical-sales-management-system</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+	<name>pharmaceutical-sales-management-system</name>
+	<description>Pharmaceutical Sales Management System - Mid-Term Project (INSY 8322)</description>
 	<properties>
 		<java.version>27</java.version>
 	</properties>
