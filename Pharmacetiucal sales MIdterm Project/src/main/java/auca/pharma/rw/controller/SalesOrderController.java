@@ -21,7 +21,6 @@ public class SalesOrderController {
     @Autowired
     private SalesOrderService salesOrderService;
 
-    // A2 + D1
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> saveSalesOrder(@RequestBody SalesOrder salesOrder) {
 
@@ -67,7 +66,6 @@ public class SalesOrderController {
         }
     }
 
-    // A2 + E3
     @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteSalesOrder(@PathVariable UUID id) {
 
@@ -82,7 +80,7 @@ public class SalesOrderController {
         }
     }
 
-    // B2
+
     @GetMapping(value = "/by-status", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getSalesOrdersByStatus(@RequestParam SalesOrderStatus status) {
 
@@ -90,7 +88,6 @@ public class SalesOrderController {
         return new ResponseEntity<>(salesOrders, HttpStatus.OK);
     }
 
-    // B3
     @GetMapping(value = "/between", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getSalesOrdersBetween(
             @RequestParam String start,
@@ -101,7 +98,6 @@ public class SalesOrderController {
         return new ResponseEntity<>(salesOrders, HttpStatus.OK);
     }
 
-    // D2
     @PatchMapping(value = "/{id}/status", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> changeStatus(@PathVariable UUID id, @RequestParam SalesOrderStatus status) {
 
@@ -116,7 +112,6 @@ public class SalesOrderController {
         }
     }
 
-    // F1
     @GetMapping(value = "/stats/by-status", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getSalesOrderCountPerStatus() {
 
@@ -124,7 +119,6 @@ public class SalesOrderController {
         return new ResponseEntity<>(counts, HttpStatus.OK);
     }
 
-    // F2
     @PatchMapping(value = "/cancel-day", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> cancelSalesRepresentativeDay(
             @RequestParam UUID salesRepresentativeId,
@@ -135,7 +129,6 @@ public class SalesOrderController {
         return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
     }
 
-    // Bonus: sales orders page by page
     @GetMapping(value = "/page", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getSalesOrdersPage(
             @RequestParam(defaultValue = "0") int page,

@@ -49,12 +49,10 @@ public class DeliveryNoteService {
         return deliveryNoteRepo.findAll();
     }
 
-    // E2
     public List<DeliveryNote> getDeliveryNotesOfPharmacy(String licenceNumber) {
         return deliveryNoteRepo.findDeliveryNotesByLicenceNumber(licenceNumber);
     }
 
-    // E3
     public String deleteDeliveryNote(UUID id) {
 
         Optional<DeliveryNote> existingDeliveryNote = deliveryNoteRepo.findById(id);

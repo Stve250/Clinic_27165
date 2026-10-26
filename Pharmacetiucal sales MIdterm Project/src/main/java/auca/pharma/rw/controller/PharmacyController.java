@@ -73,7 +73,6 @@ public class PharmacyController {
         }
     }
 
-    // B1
     @GetMapping(value = "/by-district", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getPharmaciesByDistrict(@RequestParam String district) {
 
@@ -81,7 +80,6 @@ public class PharmacyController {
         return new ResponseEntity<>(pharmacies, HttpStatus.OK);
     }
 
-    // C4
     @GetMapping(value = "/of-sales-representative/{salesRepresentativeId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getPharmaciesOfSalesRepresentative(@PathVariable UUID salesRepresentativeId) {
 

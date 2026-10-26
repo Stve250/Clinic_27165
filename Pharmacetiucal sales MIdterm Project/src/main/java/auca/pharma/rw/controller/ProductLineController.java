@@ -68,7 +68,6 @@ public class ProductLineController {
         }
     }
 
-    // C3
     @GetMapping(value = "/unused", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getUnusedProductLines() {
 

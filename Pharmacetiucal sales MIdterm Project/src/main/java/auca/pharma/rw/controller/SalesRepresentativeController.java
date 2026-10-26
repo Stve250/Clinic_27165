@@ -70,7 +70,6 @@ public class SalesRepresentativeController {
         }
     }
 
-    // C1
     @GetMapping(value = "/by-product-line", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getSalesRepresentativesByProductLine(@RequestParam String name) {
 
@@ -79,7 +78,6 @@ public class SalesRepresentativeController {
         return new ResponseEntity<>(salesRepresentatives, HttpStatus.OK);
     }
 
-    // D3
     @PutMapping(value = "/{salesRepresentativeId}/product-lines/{productLineId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addProductLine(
             @PathVariable UUID salesRepresentativeId,
@@ -97,7 +95,6 @@ public class SalesRepresentativeController {
         }
     }
 
-    // D4
     @PatchMapping(value = "/{salesRepresentativeId}/territory", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> changeTerritory(
             @PathVariable UUID salesRepresentativeId,

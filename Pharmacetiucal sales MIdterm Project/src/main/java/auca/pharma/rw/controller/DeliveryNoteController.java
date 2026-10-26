@@ -17,7 +17,6 @@ public class DeliveryNoteController {
     @Autowired
     private DeliveryNoteService deliveryNoteService;
 
-    // E1
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> saveDeliveryNote(
             @RequestParam UUID salesOrderId,
@@ -41,7 +40,7 @@ public class DeliveryNoteController {
         return new ResponseEntity<>(deliveryNotes, HttpStatus.OK);
     }
 
-    // E2
+
     @GetMapping(value = "/pharmacy/{licenceNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getDeliveryNotesOfPharmacy(@PathVariable String licenceNumber) {
 
@@ -49,7 +48,6 @@ public class DeliveryNoteController {
         return new ResponseEntity<>(deliveryNotes, HttpStatus.OK);
     }
 
-    // E3
     @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteDeliveryNote(@PathVariable UUID id) {
 

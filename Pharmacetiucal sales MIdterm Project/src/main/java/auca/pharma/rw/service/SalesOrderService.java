@@ -25,7 +25,6 @@ public class SalesOrderService {
     @Autowired
     private DeliveryNoteRepository deliveryNoteRepo;
 
-    // A2 + D1: safe saving
     public String saveSalesOrder(SalesOrder salesOrder) {
 
         if (salesOrder.getOrderDate() != null && salesOrder.getOrderDate().isBefore(LocalDate.now())) {
@@ -54,8 +53,6 @@ public class SalesOrderService {
     public Optional<SalesOrder> getSalesOrderById(UUID id) {
         return salesOrderRepo.findById(id);
     }
-
-    // D2: the general update no longer touches the status
     public String updateSalesOrder(UUID id, SalesOrder salesOrder) {
 
         Optional<SalesOrder> existingSalesOrder = salesOrderRepo.findById(id);
@@ -74,7 +71,6 @@ public class SalesOrderService {
         return "Sales order updated successfully";
     }
 
-    // A2 + E3: a sales order with delivery notes cannot be deleted
     public String deleteSalesOrder(UUID id) {
 
         Optional<SalesOrder> existingSalesOrder = salesOrderRepo.findById(id);
@@ -91,17 +87,14 @@ public class SalesOrderService {
         return "Sales order deleted successfully";
     }
 
-    // B2
     public List<SalesOrder> getSalesOrdersByStatus(SalesOrderStatus status) {
         return salesOrderRepo.findByStatusOrderByOrderDateAsc(status);
     }
 
-    // B3
     public List<SalesOrder> getSalesOrdersBetween(LocalDate start, LocalDate end) {
         return salesOrderRepo.findByOrderDateBetweenOrderByOrderDateAsc(start, end);
     }
 
-    // D2: status flow
     public String changeStatus(UUID id, SalesOrderStatus newStatus) {
 
         Optional<SalesOrder> existingSalesOrder = salesOrderRepo.findById(id);
@@ -132,19 +125,16 @@ public class SalesOrderService {
         return "Sales order status updated successfully";
     }
 
-    // F1
     public List<Object[]> getSalesOrderCountPerStatus() {
         return salesOrderRepo.countSalesOrdersByStatus();
     }
 
-    // F2
     @Transactional
     public String cancelSalesRepresentativeDay(UUID salesRepresentativeId, LocalDate date) {
         int updated = salesOrderRepo.cancelSalesRepresentativeDay(salesRepresentativeId, date);
         return updated + " sales orders cancelled";
     }
 
-    // Bonus: page by page
     public Page<SalesOrder> getSalesOrdersPage(Pageable pageable) {
         return salesOrderRepo.findAll(pageable);
     }

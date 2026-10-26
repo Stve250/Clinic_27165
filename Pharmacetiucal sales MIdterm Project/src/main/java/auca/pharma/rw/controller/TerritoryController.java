@@ -68,7 +68,6 @@ public class TerritoryController {
         }
     }
 
-    // C2
     @GetMapping(value = "/free", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getFreeTerritories() {
 

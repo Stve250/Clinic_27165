@@ -70,12 +70,9 @@ public class SalesRepresentativeService {
         return "Sales representative deleted successfully";
     }
 
-    // C1
     public List<SalesRepresentative> getSalesRepresentativesByProductLine(String name) {
         return salesRepresentativeRepo.findSalesRepresentativesByProductLineName(name);
     }
-
-    // D3
     @Transactional
     public String addProductLine(UUID salesRepresentativeId, UUID productLineId) {
 
@@ -104,7 +101,6 @@ public class SalesRepresentativeService {
         return "Product line added to the sales representative";
     }
 
-    // D4
     @Transactional
     public String changeTerritory(UUID salesRepresentativeId, int territoryNumber) {
 
