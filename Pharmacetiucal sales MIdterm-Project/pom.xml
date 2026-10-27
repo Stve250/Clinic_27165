@@ -12,7 +12,11 @@
 	<artifactId>pharmaceutical-sales-management-system</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>pharmaceutical-sales-management-system</name>
+<<<<<<< HEAD
 	<description>Pharmaceutical Sales Management System - Mid-Term Project</description>
+=======
+	<description>Pharmaceutical Sales Management System - Mid-Term Project </description>
+>>>>>>> 9887010c234b1dda2cbd29dd962e2833a758964b
 	<properties>
 		<java.version>27</java.version>
 	</properties>
