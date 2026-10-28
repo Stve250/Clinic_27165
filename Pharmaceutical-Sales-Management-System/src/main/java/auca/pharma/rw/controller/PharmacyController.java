@@ -73,4 +73,11 @@ public class PharmacyController {
         }
     }
 
+    @GetMapping(value = "/by-district", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getPharmaciesByDistrict(@RequestParam String district) {
+
+        List<Pharmacy> pharmacies = pharmacyService.getPharmaciesByDistrict(district);
+        return new ResponseEntity<>(pharmacies, HttpStatus.OK);
+    }
+
 }

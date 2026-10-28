@@ -34,7 +34,6 @@ public class SalesOrderService {
         return salesOrderRepo.findById(id);
     }
 
-    // D2: the general update no longer touches the status
     public String updateSalesOrder(UUID id, SalesOrder salesOrder) {
 
         Optional<SalesOrder> existingSalesOrder = salesOrderRepo.findById(id);
@@ -63,6 +62,16 @@ public class SalesOrderService {
 
         salesOrderRepo.deleteById(id);
         return "Sales order deleted successfully";
+    }
+
+    // B2
+    public List<SalesOrder> getSalesOrdersByStatus(SalesOrderStatus status) {
+        return salesOrderRepo.findByStatusOrderByOrderDateAsc(status);
+    }
+
+    // B3
+    public List<SalesOrder> getSalesOrdersBetween(LocalDate start, LocalDate end) {
+        return salesOrderRepo.findByOrderDateBetweenOrderByOrderDateAsc(start, end);
     }
 
 }

@@ -11,4 +11,7 @@ import auca.pharma.rw.domain.Pharmacy;
 
 @Repository
 public interface PharmacyRepository extends JpaRepository<Pharmacy, UUID> {
+
+    List<Pharmacy> findByDistrictIgnoreCaseOrderByPharmacyNameAsc(String district);
+
 }

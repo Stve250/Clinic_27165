@@ -71,4 +71,21 @@ public class SalesOrderController {
         }
     }
 
+    @GetMapping(value = "/by-status", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getSalesOrdersByStatus(@RequestParam SalesOrderStatus status) {
+
+        List<SalesOrder> salesOrders = salesOrderService.getSalesOrdersByStatus(status);
+        return new ResponseEntity<>(salesOrders, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/between", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getSalesOrdersBetween(
+            @RequestParam String start,
+            @RequestParam String end) {
+
+        List<SalesOrder> salesOrders = salesOrderService.getSalesOrdersBetween(
+                LocalDate.parse(start), LocalDate.parse(end));
+        return new ResponseEntity<>(salesOrders, HttpStatus.OK);
+    }
+
 }

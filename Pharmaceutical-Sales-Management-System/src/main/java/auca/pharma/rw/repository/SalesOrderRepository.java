@@ -13,4 +13,9 @@ import auca.pharma.rw.domain.SalesOrderStatus;
 
 @Repository
 public interface SalesOrderRepository extends JpaRepository<SalesOrder, UUID> {
+
+    List<SalesOrder> findByStatusOrderByOrderDateAsc(SalesOrderStatus status);
+
+    List<SalesOrder> findByOrderDateBetweenOrderByOrderDateAsc(LocalDate start, LocalDate end);
+
 }

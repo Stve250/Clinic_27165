@@ -60,4 +60,8 @@ public class PharmacyService {
         return "Pharmacy deleted successfully";
     }
 
+    public List<Pharmacy> getPharmaciesByDistrict(String district) {
+        return pharmacyRepo.findByDistrictIgnoreCaseOrderByPharmacyNameAsc(district);
+    }
+
 }
