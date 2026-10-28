@@ -6,17 +6,13 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>4.1.1</version>
-		<relativePath/> 
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>auca</groupId>
 	<artifactId>pharmaceutical-sales-management-system</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>pharmaceutical-sales-management-system</name>
-<<<<<<< HEAD
-	<description>Pharmaceutical Sales Management System - Mid-Term Project</description>
-=======
-	<description>Pharmaceutical Sales Management System - Mid-Term Project </description>
->>>>>>> 9887010c234b1dda2cbd29dd962e2833a758964b
+	<description>Pharmaceutical Sales Management System - Mid-Term Project (INSY 8322)</description>
 	<properties>
 		<java.version>27</java.version>
 	</properties>
