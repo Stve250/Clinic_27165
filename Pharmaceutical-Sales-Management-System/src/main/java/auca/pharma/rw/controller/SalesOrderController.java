@@ -73,6 +73,8 @@ public class SalesOrderController {
 
         if (returnedMessage.equals("The sales order with that id does not exist")) {
             return new ResponseEntity<>(returnedMessage, HttpStatus.NOT_FOUND);
+        } else if (returnedMessage.equals("That sales order has delivery notes, delete them first")) {
+            return new ResponseEntity<>(returnedMessage, HttpStatus.CONFLICT);
         } else {
             return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
         }

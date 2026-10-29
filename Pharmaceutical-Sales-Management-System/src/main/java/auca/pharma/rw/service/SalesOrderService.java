@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import auca.pharma.rw.domain.SalesOrder;
 import auca.pharma.rw.domain.SalesOrderStatus;
+import auca.pharma.rw.repository.DeliveryNoteRepository;
 import auca.pharma.rw.repository.SalesOrderRepository;
 
 @Service
@@ -20,6 +21,9 @@ public class SalesOrderService {
 
     @Autowired
     private SalesOrderRepository salesOrderRepo;
+
+    @Autowired
+    private DeliveryNoteRepository deliveryNoteRepo;
 
     public String saveSalesOrder(SalesOrder salesOrder) {
 
@@ -74,6 +78,10 @@ public class SalesOrderService {
 
         if (existingSalesOrder.isEmpty()) {
             return "The sales order with that id does not exist";
+        }
+
+        if (deliveryNoteRepo.existsBySalesOrder(existingSalesOrder.get())) {
+            return "That sales order has delivery notes, delete them first";
         }
 
         salesOrderRepo.deleteById(id);
