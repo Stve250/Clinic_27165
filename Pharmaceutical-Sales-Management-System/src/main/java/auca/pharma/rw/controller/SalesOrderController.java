@@ -69,8 +69,7 @@ public class SalesOrderController {
         } else {
             return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
         }
-    }
-
+    
     @GetMapping(value = "/by-status", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getSalesOrdersByStatus(@RequestParam SalesOrderStatus status) {
 

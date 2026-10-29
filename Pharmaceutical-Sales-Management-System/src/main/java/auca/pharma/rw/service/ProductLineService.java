@@ -56,4 +56,8 @@ public class ProductLineService {
         return "Product line deleted successfully";
     }
 
+    public List<ProductLine> getUnusedProductLines() {
+        return productLineRepo.findUnusedProductLines();
+    }
+
 }

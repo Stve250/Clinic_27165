@@ -12,4 +12,9 @@ import auca.pharma.rw.domain.Territory;
 
 @Repository
 public interface SalesRepresentativeRepository extends JpaRepository<SalesRepresentative, UUID> {
+
+    @Query("SELECT DISTINCT s FROM SalesRepresentative s JOIN s.productLines p " +
+            "WHERE LOWER(p.name) = LOWER(:name)")
+    List<SalesRepresentative> findSalesRepresentativesByProductLineName(@Param("name") String name);
+
 }

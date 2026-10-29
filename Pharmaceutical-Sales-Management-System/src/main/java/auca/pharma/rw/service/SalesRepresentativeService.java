@@ -70,4 +70,8 @@ public class SalesRepresentativeService {
         return "Sales representative deleted successfully";
     }
 
+    public List<SalesRepresentative> getSalesRepresentativesByProductLine(String name) {
+        return salesRepresentativeRepo.findSalesRepresentativesByProductLineName(name);
+    }
+
 }

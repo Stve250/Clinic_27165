@@ -14,4 +14,8 @@ public interface PharmacyRepository extends JpaRepository<Pharmacy, UUID> {
 
     List<Pharmacy> findByDistrictIgnoreCaseOrderByPharmacyNameAsc(String district);
 
+    @Query("SELECT DISTINCT o.pharmacy FROM SalesOrder o " +
+            "WHERE o.salesRepresentative.id = :salesRepresentativeId")
+    List<Pharmacy> findPharmaciesBySalesRepresentativeId(@Param("salesRepresentativeId") UUID salesRepresentativeId);
+
 }

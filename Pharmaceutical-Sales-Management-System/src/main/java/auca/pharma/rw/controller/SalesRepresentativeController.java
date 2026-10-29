@@ -69,5 +69,13 @@ public class SalesRepresentativeController {
             return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
         }
     }
+    
+    @GetMapping(value = "/by-product-line", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getSalesRepresentativesByProductLine(@RequestParam String name) {
+
+        List<SalesRepresentative> salesRepresentatives = salesRepresentativeService
+                .getSalesRepresentativesByProductLine(name);
+        return new ResponseEntity<>(salesRepresentatives, HttpStatus.OK);
+    }
 
 }

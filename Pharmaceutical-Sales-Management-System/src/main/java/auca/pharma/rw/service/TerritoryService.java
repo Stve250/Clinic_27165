@@ -57,4 +57,8 @@ public class TerritoryService {
         return "Territory deleted successfully";
     }
 
+    public List<Territory> getFreeTerritories() {
+        return territoryRepo.findFreeTerritories();
+    }
+
 }

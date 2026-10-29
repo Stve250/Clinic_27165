@@ -10,4 +10,8 @@ import auca.pharma.rw.domain.ProductLine;
 
 @Repository
 public interface ProductLineRepository extends JpaRepository<ProductLine, UUID> {
+
+    @Query("SELECT p FROM ProductLine p WHERE p.salesRepresentatives IS EMPTY")
+    List<ProductLine> findUnusedProductLines();
+
 }

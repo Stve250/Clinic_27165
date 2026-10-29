@@ -80,4 +80,18 @@ public class PharmacyController {
         return new ResponseEntity<>(pharmacies, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/of-sales-representative/{salesRepresentativeId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getPharmaciesOfSalesRepresentative(@PathVariable UUID salesRepresentativeId) {
+
+        Optional<SalesRepresentative> salesRepresentative = salesRepresentativeService
+                .getSalesRepresentativeById(salesRepresentativeId);
+
+        if (salesRepresentative.isEmpty()) {
+            return new ResponseEntity<>("The sales representative with that id does not exist", HttpStatus.NOT_FOUND);
+        }
+
+        List<Pharmacy> pharmacies = pharmacyService.getPharmaciesOfSalesRepresentative(salesRepresentativeId);
+        return new ResponseEntity<>(pharmacies, HttpStatus.OK);
+    }
+
 }

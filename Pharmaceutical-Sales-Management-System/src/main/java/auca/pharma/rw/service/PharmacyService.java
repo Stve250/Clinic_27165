@@ -64,4 +64,8 @@ public class PharmacyService {
         return pharmacyRepo.findByDistrictIgnoreCaseOrderByPharmacyNameAsc(district);
     }
 
+    public List<Pharmacy> getPharmaciesOfSalesRepresentative(UUID salesRepresentativeId) {
+        return pharmacyRepo.findPharmaciesBySalesRepresentativeId(salesRepresentativeId);
+    }
+
 }

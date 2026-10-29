@@ -68,4 +68,11 @@ public class ProductLineController {
         }
     }
 
+    @GetMapping(value = "/unused", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getUnusedProductLines() {
+
+        List<ProductLine> productLines = productLineService.getUnusedProductLines();
+        return new ResponseEntity<>(productLines, HttpStatus.OK);
+    }
+
 }

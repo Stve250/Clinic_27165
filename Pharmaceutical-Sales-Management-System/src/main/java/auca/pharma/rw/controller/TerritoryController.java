@@ -68,4 +68,11 @@ public class TerritoryController {
         }
     }
 
+    @GetMapping(value = "/free", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getFreeTerritories() {
+
+        List<Territory> territories = territoryService.getFreeTerritories();
+        return new ResponseEntity<>(territories, HttpStatus.OK);
+    }
+
 }

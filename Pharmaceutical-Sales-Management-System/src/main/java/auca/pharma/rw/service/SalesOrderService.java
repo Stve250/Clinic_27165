@@ -6,8 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,12 +63,10 @@ public class SalesOrderService {
         return "Sales order deleted successfully";
     }
 
-    // B2
     public List<SalesOrder> getSalesOrdersByStatus(SalesOrderStatus status) {
         return salesOrderRepo.findByStatusOrderByOrderDateAsc(status);
     }
 
-    // B3
     public List<SalesOrder> getSalesOrdersBetween(LocalDate start, LocalDate end) {
         return salesOrderRepo.findByOrderDateBetweenOrderByOrderDateAsc(start, end);
     }
