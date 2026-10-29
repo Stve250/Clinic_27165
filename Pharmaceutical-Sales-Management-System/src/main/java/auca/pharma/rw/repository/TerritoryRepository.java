@@ -12,6 +12,8 @@ import auca.pharma.rw.domain.Territory;
 @Repository
 public interface TerritoryRepository extends JpaRepository<Territory, UUID> {
 
+    Optional<Territory> findByTerritoryNumber(int territoryNumber);
+
     @Query("SELECT t FROM Territory t " +
             "WHERE NOT EXISTS (SELECT s FROM SalesRepresentative s WHERE s.territory = t) " +
             "ORDER BY t.territoryNumber")

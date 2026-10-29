@@ -17,4 +17,6 @@ public interface SalesRepresentativeRepository extends JpaRepository<SalesRepres
             "WHERE LOWER(p.name) = LOWER(:name)")
     List<SalesRepresentative> findSalesRepresentativesByProductLineName(@Param("name") String name);
 
+    boolean existsByTerritoryAndIdNot(Territory territory, UUID salesRepresentativeId);
+
 }

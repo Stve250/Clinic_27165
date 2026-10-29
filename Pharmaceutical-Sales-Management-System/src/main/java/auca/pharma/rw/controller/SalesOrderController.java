@@ -25,7 +25,14 @@ public class SalesOrderController {
     public ResponseEntity<?> saveSalesOrder(@RequestBody SalesOrder salesOrder) {
 
         String returnedMessage = salesOrderService.saveSalesOrder(salesOrder);
-        return new ResponseEntity<>(returnedMessage, HttpStatus.CREATED);
+
+        if (returnedMessage.equals("Sales order date cannot be in the past")) {
+            return new ResponseEntity<>(returnedMessage, HttpStatus.BAD_REQUEST);
+        } else if (returnedMessage.equals("Sales representative already has an order on that date")) {
+            return new ResponseEntity<>(returnedMessage, HttpStatus.CONFLICT);
+        } else {
+            return new ResponseEntity<>(returnedMessage, HttpStatus.CREATED);
+        }
     }
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -69,7 +76,8 @@ public class SalesOrderController {
         } else {
             return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
         }
-    
+    }
+
     @GetMapping(value = "/by-status", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getSalesOrdersByStatus(@RequestParam SalesOrderStatus status) {
 
@@ -85,6 +93,20 @@ public class SalesOrderController {
         List<SalesOrder> salesOrders = salesOrderService.getSalesOrdersBetween(
                 LocalDate.parse(start), LocalDate.parse(end));
         return new ResponseEntity<>(salesOrders, HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/{id}/status", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> changeStatus(@PathVariable UUID id, @RequestParam SalesOrderStatus status) {
+
+        String returnedMessage = salesOrderService.changeStatus(id, status);
+
+        if (returnedMessage.equals("The sales order with that id does not exist")) {
+            return new ResponseEntity<>(returnedMessage, HttpStatus.NOT_FOUND);
+        } else if (returnedMessage.startsWith("Cannot change status from")) {
+            return new ResponseEntity<>(returnedMessage, HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
+        }
     }
 
 }

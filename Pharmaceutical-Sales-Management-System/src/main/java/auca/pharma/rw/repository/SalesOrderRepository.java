@@ -18,4 +18,7 @@ public interface SalesOrderRepository extends JpaRepository<SalesOrder, UUID> {
 
     List<SalesOrder> findByOrderDateBetweenOrderByOrderDateAsc(LocalDate start, LocalDate end);
 
+    boolean existsBySalesRepresentativeIdAndOrderDateAndStatusNot(UUID salesRepresentativeId,
+            LocalDate orderDate, SalesOrderStatus status);
+
 }

@@ -69,13 +69,47 @@ public class SalesRepresentativeController {
             return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
         }
     }
-    
+
     @GetMapping(value = "/by-product-line", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getSalesRepresentativesByProductLine(@RequestParam String name) {
 
         List<SalesRepresentative> salesRepresentatives = salesRepresentativeService
                 .getSalesRepresentativesByProductLine(name);
         return new ResponseEntity<>(salesRepresentatives, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{salesRepresentativeId}/product-lines/{productLineId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> addProductLine(
+            @PathVariable UUID salesRepresentativeId,
+            @PathVariable UUID productLineId) {
+
+        String returnedMessage = salesRepresentativeService.addProductLine(salesRepresentativeId, productLineId);
+
+        if (returnedMessage.equals("The sales representative with that id does not exist")
+                || returnedMessage.equals("That product line does not exist")) {
+            return new ResponseEntity<>(returnedMessage, HttpStatus.NOT_FOUND);
+        } else if (returnedMessage.equals("The sales representative already has that product line")) {
+            return new ResponseEntity<>(returnedMessage, HttpStatus.CONFLICT);
+        } else {
+            return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
+        }
+    }
+
+    @PatchMapping(value = "/{salesRepresentativeId}/territory", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> changeTerritory(
+            @PathVariable UUID salesRepresentativeId,
+            @RequestParam int territoryNumber) {
+
+        String returnedMessage = salesRepresentativeService.changeTerritory(salesRepresentativeId, territoryNumber);
+
+        if (returnedMessage.equals("The sales representative with that id does not exist")
+                || returnedMessage.equals("The territory with that territoryNumber does not exist")) {
+            return new ResponseEntity<>(returnedMessage, HttpStatus.NOT_FOUND);
+        } else if (returnedMessage.equals("That territory is taken by another sales representative")) {
+            return new ResponseEntity<>(returnedMessage, HttpStatus.CONFLICT);
+        } else {
+            return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
+        }
     }
 
 }

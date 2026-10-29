@@ -6,7 +6,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,22 @@ public class SalesOrderService {
     private SalesOrderRepository salesOrderRepo;
 
     public String saveSalesOrder(SalesOrder salesOrder) {
+
+        if (salesOrder.getOrderDate() != null && salesOrder.getOrderDate().isBefore(LocalDate.now())) {
+            return "Sales order date cannot be in the past";
+        }
+
+        if (salesOrder.getSalesRepresentative() != null
+                && salesOrder.getSalesRepresentative().getId() != null
+                && salesOrder.getOrderDate() != null
+                && salesOrderRepo.existsBySalesRepresentativeIdAndOrderDateAndStatusNot(
+                        salesOrder.getSalesRepresentative().getId(),
+                        salesOrder.getOrderDate(),
+                        SalesOrderStatus.CANCELLED)) {
+            return "Sales representative already has an order on that date";
+        }
+
+        salesOrder.setStatus(SalesOrderStatus.PLACED);
         salesOrderRepo.save(salesOrder);
         return "Sales order saved successfully";
     }
@@ -69,6 +86,36 @@ public class SalesOrderService {
 
     public List<SalesOrder> getSalesOrdersBetween(LocalDate start, LocalDate end) {
         return salesOrderRepo.findByOrderDateBetweenOrderByOrderDateAsc(start, end);
+    }
+
+    public String changeStatus(UUID id, SalesOrderStatus newStatus) {
+
+        Optional<SalesOrder> existingSalesOrder = salesOrderRepo.findById(id);
+
+        if (existingSalesOrder.isEmpty()) {
+            return "The sales order with that id does not exist";
+        }
+
+        SalesOrder salesOrder = existingSalesOrder.get();
+        SalesOrderStatus currentStatus = salesOrder.getStatus();
+
+        boolean allowed = false;
+
+        if (currentStatus == SalesOrderStatus.PLACED) {
+            allowed = newStatus == SalesOrderStatus.APPROVED
+                    || newStatus == SalesOrderStatus.CANCELLED;
+        } else if (currentStatus == SalesOrderStatus.APPROVED) {
+            allowed = newStatus == SalesOrderStatus.DELIVERED
+                    || newStatus == SalesOrderStatus.CANCELLED;
+        }
+
+        if (!allowed) {
+            return "Cannot change status from " + currentStatus + " to " + newStatus;
+        }
+
+        salesOrder.setStatus(newStatus);
+        salesOrderRepo.save(salesOrder);
+        return "Sales order status updated successfully";
     }
 
 }

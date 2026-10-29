@@ -74,4 +74,60 @@ public class SalesRepresentativeService {
         return salesRepresentativeRepo.findSalesRepresentativesByProductLineName(name);
     }
 
+    @Transactional
+    public String addProductLine(UUID salesRepresentativeId, UUID productLineId) {
+
+        Optional<SalesRepresentative> existingSalesRepresentative = salesRepresentativeRepo
+                .findById(salesRepresentativeId);
+
+        if (existingSalesRepresentative.isEmpty()) {
+            return "The sales representative with that id does not exist";
+        }
+
+        Optional<ProductLine> existingProductLine = productLineRepo.findById(productLineId);
+
+        if (existingProductLine.isEmpty()) {
+            return "That product line does not exist";
+        }
+
+        SalesRepresentative salesRepresentative = existingSalesRepresentative.get();
+        ProductLine productLine = existingProductLine.get();
+
+        if (salesRepresentative.getProductLines().contains(productLine)) {
+            return "The sales representative already has that product line";
+        }
+
+        salesRepresentative.getProductLines().add(productLine);
+        salesRepresentativeRepo.save(salesRepresentative);
+        return "Product line added to the sales representative";
+    }
+
+    @Transactional
+    public String changeTerritory(UUID salesRepresentativeId, int territoryNumber) {
+
+        Optional<SalesRepresentative> existingSalesRepresentative = salesRepresentativeRepo
+                .findById(salesRepresentativeId);
+
+        if (existingSalesRepresentative.isEmpty()) {
+            return "The sales representative with that id does not exist";
+        }
+
+        Optional<Territory> existingTerritory = territoryRepo.findByTerritoryNumber(territoryNumber);
+
+        if (existingTerritory.isEmpty()) {
+            return "The territory with that territoryNumber does not exist";
+        }
+
+        Territory territory = existingTerritory.get();
+
+        if (salesRepresentativeRepo.existsByTerritoryAndIdNot(territory, salesRepresentativeId)) {
+            return "That territory is taken by another sales representative";
+        }
+
+        SalesRepresentative salesRepresentative = existingSalesRepresentative.get();
+        salesRepresentative.setTerritory(territory);
+        salesRepresentativeRepo.save(salesRepresentative);
+        return "Territory changed successfully";
+    }
+
 }
