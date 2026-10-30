@@ -21,4 +21,15 @@ public interface SalesOrderRepository extends JpaRepository<SalesOrder, UUID> {
     boolean existsBySalesRepresentativeIdAndOrderDateAndStatusNot(UUID salesRepresentativeId,
             LocalDate orderDate, SalesOrderStatus status);
 
+    @Query("SELECT s.status, COUNT(s) FROM SalesOrder s GROUP BY s.status")
+    List<Object[]> countSalesOrdersByStatus();
+
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE SalesOrder s " +
+            "SET s.status = auca.pharma.rw.domain.SalesOrderStatus.CANCELLED " +
+            "WHERE s.salesRepresentative.id = :salesRepresentativeId AND s.orderDate = :date " +
+            "AND s.status <> auca.pharma.rw.domain.SalesOrderStatus.DELIVERED")
+    int cancelSalesRepresentativeDay(@Param("salesRepresentativeId") UUID salesRepresentativeId,
+            @Param("date") LocalDate date);
+
 }

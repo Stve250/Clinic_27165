@@ -111,4 +111,21 @@ public class SalesOrderController {
         }
     }
 
+    @GetMapping(value = "/stats/by-status", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getSalesOrderCountPerStatus() {
+
+        List<Object[]> counts = salesOrderService.getSalesOrderCountPerStatus();
+        return new ResponseEntity<>(counts, HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/cancel-day", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> cancelSalesRepresentativeDay(
+            @RequestParam UUID salesRepresentativeId,
+            @RequestParam String date) {
+
+        String returnedMessage = salesOrderService.cancelSalesRepresentativeDay(
+                salesRepresentativeId, LocalDate.parse(date));
+        return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
+    }
+
 }

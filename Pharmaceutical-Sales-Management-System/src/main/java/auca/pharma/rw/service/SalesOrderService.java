@@ -126,4 +126,14 @@ public class SalesOrderService {
         return "Sales order status updated successfully";
     }
 
+    public List<Object[]> getSalesOrderCountPerStatus() {
+        return salesOrderRepo.countSalesOrdersByStatus();
+    }
+
+    @Transactional
+    public String cancelSalesRepresentativeDay(UUID salesRepresentativeId, LocalDate date) {
+        int updated = salesOrderRepo.cancelSalesRepresentativeDay(salesRepresentativeId, date);
+        return updated + " sales orders cancelled";
+    }
+
 }
