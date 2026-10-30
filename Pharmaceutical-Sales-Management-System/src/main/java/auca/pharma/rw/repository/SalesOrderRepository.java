@@ -32,4 +32,8 @@ public interface SalesOrderRepository extends JpaRepository<SalesOrder, UUID> {
     int cancelSalesRepresentativeDay(@Param("salesRepresentativeId") UUID salesRepresentativeId,
             @Param("date") LocalDate date);
 
+    long countByStatus(SalesOrderStatus status);
+
+    long countByOrderDate(LocalDate date);
+
 }

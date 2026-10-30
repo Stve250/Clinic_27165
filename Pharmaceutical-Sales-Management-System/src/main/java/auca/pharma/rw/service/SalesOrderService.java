@@ -136,4 +136,8 @@ public class SalesOrderService {
         return updated + " sales orders cancelled";
     }
 
+    public Page<SalesOrder> getSalesOrdersPage(Pageable pageable) {
+        return salesOrderRepo.findAll(pageable);
+    }
+
 }

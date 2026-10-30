@@ -128,4 +128,20 @@ public class SalesOrderController {
         return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/page", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getSalesOrdersPage(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "orderDate,desc") String sort) {
+
+        String[] sortParts = sort.split(",");
+        Sort.Direction direction = (sortParts.length > 1 && sortParts[1].equalsIgnoreCase("desc"))
+                ? Sort.Direction.DESC
+                : Sort.Direction.ASC;
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortParts[0]));
+        Page<SalesOrder> salesOrders = salesOrderService.getSalesOrdersPage(pageable);
+        return new ResponseEntity<>(salesOrders, HttpStatus.OK);
+    }
+
 }
